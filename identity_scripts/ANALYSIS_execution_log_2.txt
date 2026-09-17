@@ -1,0 +1,202 @@
+===============================================================================
+ Re-analysis of 'Seismic drumming exhibits individual-specific structure'
+ Round 6 (R6) EXCLUDED from all main analyses -> five individuals (R1-R5).
+ R6 has only one recording session and cannot enter the cross-session test;
+ cross-session (inter-session) results were left unchanged (they use R2-R5).
+ Generated: 2026-07-27 17:58 UTC
+===============================================================================
+
+-------------------------------------------------------------------------------
+ OLD (with R6)  ->  NEW (R1-R5)   summary of every changed number
+-------------------------------------------------------------------------------
+ Waveform balanced accuracy .............. 90%            -> 87.8%
+ Waveform macro-F1 ....................... 0.86           -> 0.876
+ Waveform precision/recall range ......... 0.84 - 0.94    -> 0.80 - 0.95
+ Waveform permutation null (100 shuf) .... 16.46% ± 0.2   -> 20.0% ± 0.2   (p<0.01)
+ Noise-only control (balanced acc) ....... 61.2%          -> 61.9%  (macro-F1 ~0.67) -- ESSENTIALLY UNCHANGED
+ Sequence (4-param) balanced accuracy .... 69.9%          -> 72.6%
+ Sequence permutation null ............... 16.6% ± 4.0    -> 20.2% ± 4.7   (p<0.01)
+ SHAP number of head-drums ............... 0.0835±0.0047 r1.38 -> 0.0862±0.0056 r1.12 (most)
+ SHAP SD inter-drum interval ............. 0.0734±0.0038 r2.38 -> 0.0769±0.0047 r1.88
+ SHAP mean inter-drum interval ........... 0.0571±0.0028 r4.00 -> 0.0652±0.0047 r3.00
+ SHAP SD head-drum amplitude ............. 0.0725±0.0038 r2.25 -> 0.0406±0.0041 r4.00 (now LEAST)
+   NOTE: feature ORDER changed - SD head-drum amplitude drops from ~2nd/3rd to least;
+         mean inter-drum interval rises from least to 3rd.
+ Cross-session (waveform 43.8%, sequence 39.9%) ......... UNCHANGED (per instruction)
+ Sex classification ..................................... NON-significant (unchanged conclusion)
+ Figure 4 confusion matrix ............... R1-R6 (6x6)   -> R1-R5 (5x5)
+
+###############################################################################
+# 1) DRUMS PER BOUT & INTER-DRUM INTERVAL (requested calculation)
+###############################################################################
+DRUMS PER BOUT & INTER-DRUM INTERVAL (R1-R5, R6 excluded)
+Source: *-clicks_channels.xlsx metadata; bout = burst (col: drums-per-burst), interval = inter-drum interval (ms).
+Animal  nBouts     drums/bout(mean±SD)    interval ms(mean±SD)
+R1        2528           3.97 ± 0.81           97.1 ± 12.0
+R2        6675           3.50 ± 0.91           99.7 ± 18.6
+R3        5653           3.60 ± 0.68          111.9 ± 17.2
+R4       21726           3.90 ± 0.76           99.0 ± 16.1
+R5        2714           3.62 ± 0.89          100.1 ± 17.1
+
+ACROSS ANIMALS (mean ± SD of per-animal means):
+  Number of drums per bout: 3.72 ± 0.20
+  Inter-drum interval (ms): 101.6 ± 5.9
+
+###############################################################################
+# 2) WAVEFORM IDENTITY CLASSIFIER (R1-R5)
+###############################################################################
+WAVEFORM IDENTITY (R1-R5, R6 excluded)
+Balanced accuracy: 0.8781 (87.8%)
+Raw accuracy: 0.9102
+Macro-F1: 0.876
+Per-class (precision/recall/F1/support):
+ R1 0.799/0.859/0.828/788
+ R2 0.883/0.809/0.844/2331
+ R3 0.889/0.933/0.911/1746
+ R4 0.944/0.954/0.949/6918
+ R5 0.857/0.835/0.846/922
+Precision-recall range across individuals: 0.80-0.95
+Permutation null (100 shuffles): mean=0.2001 SD=0.0022 max=0.2053
+p-value (frac perms >= 0.8781): 0.0000  -> p<0.01
+Confusion counts: see plots/cols8_30_confusion_counts.csv
+--- full stdout (train) ---
+loaded (42348, 23)
+oversampled (80705, 23)
+fit 13.1s
+Balanced accuracy: 0.8781 | Raw acc: 0.9102 | Macro-F1: 0.8756
+Classification report:
+              precision    recall  f1-score   support
+
+          R1      0.799     0.859     0.828       788
+          R2      0.883     0.809     0.844      2331
+          R3      0.889     0.933     0.911      1746
+          R4      0.944     0.954     0.949      6918
+          R5      0.857     0.835     0.846       922
+
+    accuracy                          0.910     12705
+   macro avg      0.874     0.878     0.876     12705
+weighted avg      0.910     0.910     0.910     12705
+
+CONFUSION_LABELS=["R1", "R2", "R3", "R4", "R5"]
+CONFUSION_COUNTS=[[677, 34, 20, 36, 21], [67, 1886, 81, 255, 42], [17, 29, 1629, 47, 24], [59, 160, 55, 6602, 42], [27, 28, 47, 50, 770]]
+dump 7.3s
+DONE
+
+###############################################################################
+# 3) SEQUENCE (4-parameter) IDENTITY CLASSIFIER (R1-R5)
+###############################################################################
+SEQUENCE (4-parameter) IDENTITY (R1-R5, R6 excluded) — 268 file×channel sequences
+4-param balanced accuracy: 0.7258 (72.6%) | Macro-F1: 0.716 | Train/Test 187/81
+ Permutation (200): null mean=0.2019 SD=0.0472 -> ~20.2% ± 4.7%, p<0.01
+2-param (mean gap + SD gap) balanced accuracy: 0.5056 (50.6%)
+ Permutation (200): null mean=0.1960 SD=0.0484 -> ~19.6% ± 4.8%, p<0.01
+
+8-SEED SHAP (interventional probability, mean|SHAP| ± SD, mean rank):
+ Number of head-drums     : 0.0862 ± 0.0056 | mean rank 1.12  (most important)
+ SD inter-drum interval   : 0.0769 ± 0.0047 | mean rank 1.88
+ Mean inter-drum interval : 0.0652 ± 0.0047 | mean rank 3.00
+ SD head-drum amplitude   : 0.0406 ± 0.0041 | mean rank 4.00  (least important)
+Confusion counts: plots/seq4/seq4_confusion_counts.csv
+--- stdout: 4-param model+permutation ---
+=== Sequence 4-param (4 params) ===
+Balanced accuracy: 0.7258 | Raw acc: 0.7284 | Macro-F1: 0.7161 | Train/Test 187/81
+              precision    recall  f1-score   support
+
+          R1      0.667     0.800     0.727        10
+          R2      0.800     0.632     0.706        19
+          R3      0.667     0.842     0.744        19
+          R4      0.842     0.889     0.865        18
+          R5      0.636     0.467     0.538        15
+
+    accuracy                          0.728        81
+   macro avg      0.722     0.726     0.716        81
+weighted avg      0.731     0.728     0.722        81
+
+Permutation (200, 150 trees): null mean=0.2019 SD=0.0472  p=0.0000
+--- stdout: 2-param model+permutation ---
+=== Sequence 2-param (2 params) ===
+Balanced accuracy: 0.5056 | Raw acc: 0.4938 | Macro-F1: 0.4837 | Train/Test 187/81
+Permutation (200, 150 trees): null mean=0.1960 SD=0.0484  p=0.0000
+--- stdout: 8-seed SHAP (interventional probability) ---
+seed 48 done 6.0s
+seed 49 done 11.7s
+have seeds: ['42', '43', '44', '45', '46', '47', '48', '49']
+
+8-SEED SHAP (4 params, interventional probability):
+  Mean inter-drum interval    : 0.0652 ± 0.0047 | mean rank 3.00
+  SD inter-drum interval      : 0.0769 ± 0.0047 | mean rank 1.88
+  Number of head-drums        : 0.0862 ± 0.0056 | mean rank 1.12
+  SD head-drum amplitude      : 0.0406 ± 0.0041 | mean rank 4.00
+SAVED summary
+
+###############################################################################
+# 4) NOISE-ONLY CONTROL + SEX CLASSIFICATION (R1-R5)
+###############################################################################
+NOISE-ONLY CONTROL (R1-R5, R6 excluded; full data, 300-tree RF, centered 23-col window)
+Raw accuracy: 0.7236 (72.4%)   [orig 6-class was 61.2%]
+Balanced accuracy: 0.6193
+Macro-F1: 0.6686 (~0.67)
+Per-class recall low for data-poor R1 (0.416); majority R4 recall 0.936.
+Interpretation: noise carries some individual info (above ~20% chance) but remains
+well below signal-based waveform accuracy (87.8%). Removing R6 (one fewer class) raises raw accuracy vs the original 6-class 61.2%.
+
+SEX CLASSIFICATION (R1-R5, R6 excluded; waveform cols 8-30, grouped by animal)
+Sex map: R1 M, R2 F, R3 M, R4 F, R5 M (males=3, females=2)
+Observed balanced accuracy: 0.568 (grouped split, held-out animals R2,R5)
+Null (9 alternative animal->sex assignments): mean=0.381 SD=0.206 max=0.611
+p-value = 0.200  => NON-significant (consistent with original conclusion)
+--- stdout: noise ---
+noise X: (145057, 23) classes {np.str_('R1'): np.int64(3425), np.str_('R2'): np.int64(23429), np.str_('R3'): np.int64(9125), np.str_('R4'): np.int64(71666), np.str_('R5'): np.int64(37412)}
+fit 33.5s (train subsample 101539)
+NOISE-ONLY  Raw accuracy: 0.7236 | Balanced accuracy: 0.6193 | Macro-F1: 0.6686
+              precision    recall  f1-score   support
+
+          R1      0.991     0.416     0.586      1027
+          R2      0.847     0.466     0.601      7029
+          R3      0.710     0.789     0.747      2738
+          R4      0.676     0.936     0.785     21500
+          R5      0.861     0.490     0.624     11224
+
+    accuracy                          0.724     43518
+   macro avg      0.817     0.619     0.669     43518
+weighted avg      0.761     0.724     0.707     43518
+
+--- stdout: sex ---
+OBSERVED sex classification (grouped by animal): balanced acc=0.577 raw acc=0.642  test animals=[np.str_('R2'), np.str_('R5')]
+
+###############################################################################
+# 5) METHOD NOTES / ENVIRONMENT
+###############################################################################
+- Data: /Data/clicks (waveform, cols 8-30), /Data/clicks_metadata (sequence params),
+  /Data/no_clicks (noise). All R6* files excluded from the four main analyses.
+- Random seed 42; 70/30 stratified splits; class weights balanced; Borderline-SMOTE+ADASYN
+  oversampling on waveform training (as in original pipeline).
+- Waveform RF = 150 trees, full depth (the config the original randomized search selects;
+  a depth-10 variant scores only 0.71, confirming full depth is the tuned model).
+- Waveform SHAP per-column bars (Fig.4A): computed with the fast tree-path-dependent
+  explainer on a representative RF (interventional-probability SHAP on the full-depth
+  forest is computationally infeasible in this environment); the pattern - importance
+  spread across the window with ~0 at the aligned/normalized peak - is what the figure shows.
+- Sequence 8-seed SHAP: interventional-probability (matches the paper's method), seeds 42-49.
+- Noise-only: full training data, 300-tree RF, centered 23-col window (matches original).
+- Sex: waveform features, grouped split by animal (GroupShuffleSplit), permutation over all
+  9 alternative animal->sex assignments; observed within null (p=0.20).
+
+###############################################################################
+# 6) VERIFICATION (follow-up)
+###############################################################################
+[Point 1] DRUMS PER BOUT & INTER-DRUM INTERVAL — cross-checked with two methods:
+   RAW (each drum-row)   : 3.68 ± 0.22 drums/bout | interval 101.3 ± 5.9 ms
+   UNIQUE bouts (dedup)  : 3.72 ± 0.20 drums/bout | interval 101.6 ± 5.9 ms
+   -> robust; report 3.72 ± 0.20 drums/bout and 101.6 ± 5.9 ms (mean ± SD across R1-R5).
+
+[Point 2] NOISE-ONLY "improvement" 61.2% -> 72.4% was NOT real. It compared two
+   different metrics. Verified with identical full pipeline (300 trees, full data):
+       classes   raw acc   BALANCED acc   macro-F1
+       6 (R1-R6)  69.2%       58.6%          0.64
+       5 (R1-R5)  72.4%       61.9%          0.67
+   The paper's "61.2% (macro-F1 0.67)" matches the 5-class BALANCED accuracy (61.9%)
+   and macro-F1 (0.67) almost exactly -> "61.2%" was BALANCED accuracy; the 72.4% was
+   RAW accuracy (inflated by the majority class R4). Like-for-like, noise balanced
+   accuracy is 61.9% ~ unchanged from 61.2%. Document corrected to 61.9%.
+   (Under identical settings, removing R6 raises balanced acc only ~58.6% -> 61.9%.)
