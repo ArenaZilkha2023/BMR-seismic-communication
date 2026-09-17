@@ -1,0 +1,15 @@
+
+*** Analysis workflow ***
+=======================================================
+1. Temporal analysis of signaling --> time_bin_analysis.m
+
+This analysis is independent of the spatial beam-analysis pipeline.
+The script processes the head-drum data from each experimental session and divides the recording into three temporal periods:
+- early
+- middle
+- late
+
+The resulting data are stored as MATLAB structures from which head-drum counts and signal amplitudes are extracted.
+Statistical analyses of signaling rate and amplitude were subsequently performed in GraphPad Prism, and the corresponding
+manuscript figures were generated in Prism. Therefore, the statistical testing and final figure generation for this component
+are not performed by the script.
