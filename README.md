@@ -1,6 +1,6 @@
 # Code accompanying the BMR seismic communication study
 
-This repository contains the analysis code associated with the study **“Blind mole rat seismic communication signals are directed towards specific receivers and can convey socially relevant information.”**
+This repository contains the analysis code associated with the study **“Directional seismic signals encode socially relevant information in a solitary rodent.”**
 
 The study investigates seismic communication in blind mole rats (*Spalax*) using recordings obtained from a dense array of geophones in a semi-natural outdoor experimental arena. The analyses examine the spatial directionality of seismic head-drumming signals, changes in signaling behavior across social contexts, and the presence of individual-specific information in seismic signals.
 
